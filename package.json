@@ -1,0 +1,37 @@
+{
+  "name": "jsbi-calculator",
+  "version": "0.0.1",
+  "description": "A calculator utility to perform arbitrary integral arithmetic and exponentiation in BigInt, JSBI based.",
+  "main": "dist/jsbi-calculator.js",
+  "module": "dist/jsbi-calculator.mjs",
+  "browser": "dist/jsbi-calculator-umd.js",
+  "scripts": {
+    "test": "node test/test.mjs",
+    "build": "rollup --config rollup.config.js",
+    "lint": "eslint --fix jsbi-calculator.mjs"
+  },
+  "keywords": [
+    "jsbi",
+    "calculator",
+    "math",
+    "expression"
+  ],
+  "author": "Leslie Wong",
+  "email": "79917148leslie@gmail.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@babel/preset-env": "^7.5.5",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "prettier": "^2.3.2",
+    "rollup": "^1.19.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-babel-minify": "^9.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "dependencies": {
+    "jsbi": "^3.1.6"
+  }
+}
