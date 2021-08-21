@@ -3,9 +3,82 @@
  * @email 79917148leslie@gmail.com
  * @description a calculator utility to perform arbitrary-presion arithmetic in BigDecimal, JSBI based.
  */
+
 "use strict";
 
 import JSBI from "jsbi";
+
+/**
+ *
+ * @description A custom BigDecimal class wrapped with JSBI,
+ * which is inspred from trincot's answer.
+ * https://stackoverflow.com/a/66939244/8808175
+ *
+ */
+class BigDecimal {
+  // Configuration: constants
+  static DECIMALS = 18; // number of decimals on all instances
+  static ROUNDED = true; // number are truncated (false) or rounded (true)
+  static SHIFT = JSBI.BigInt("1" + "0".repeat(BigDecimal.DECIMALS)); // derived constant
+  constructor(value) {
+    if (value instanceof BigDecimal) return value;
+    let [ints, decis] = String(value).split(".").concat("");
+    this._n = JSBI.add(
+      JSBI.BigInt(
+        ints +
+          decis.padEnd(BigDecimal.DECIMALS, "0").slice(0, BigDecimal.DECIMALS)
+      ),
+      JSBI.BigInt(BigDecimal.ROUNDED && decis[BigDecimal.DECIMALS] >= "5")
+    );
+  }
+
+  static fromJSBIBigInt(jsbibigint) {
+    return Object.assign(Object.create(BigDecimal.prototype), {
+      _n: jsbibigint,
+    });
+  }
+  add(num) {
+    return BigDecimal.fromJSBIBigInt(JSBI.add(this._n, new BigDecimal(num)._n));
+  }
+  subtract(num) {
+    return BigDecimal.fromJSBIBigInt(
+      JSBI.subtract(this._n, new BigDecimal(num)._n)
+    );
+  }
+  static _divRound(dividend, divisor) {
+    return BigDecimal.fromJSBIBigInt(
+      JSBI.add(
+        JSBI.divide(dividend, divisor),
+        BigDecimal.ROUNDED
+          ? JSBI.remainder(
+              JSBI.divide(JSBI.multiply(dividend, JSBI.BigInt(2)), divisor),
+              JSBI.BigInt(2)
+            )
+          : JSBI.BigInt(0)
+      )
+    );
+  }
+  multiple(num) {
+    return BigDecimal._divRound(
+      JSBI.multiply(this._n, new BigDecimal(num)._n),
+      BigDecimal.SHIFT
+    );
+  }
+  divide(num) {
+    return BigDecimal._divRound(
+      JSBI.multiply(this._n, BigDecimal.SHIFT),
+      new BigDecimal(num)._n
+    );
+  }
+  toString() {
+    const s = this._n.toString().padStart(BigDecimal.DECIMALS + 1, "0");
+    return (
+      s.slice(0, -BigDecimal.DECIMALS) +
+      "." +
+      s.slice(-BigDecimal.DECIMALS).replace(/\.?0+$/, "")
+    );
+  }
+}
 
 /**
  * Directly get the result with arbitrary precision using jsbiCal and rpnParse
@@ -94,29 +167,29 @@ function jsbiCal(tokens) {
       case "+": {
         let a1 = stack.pop();
         let b1 = stack.pop();
-        stack.push(JSBI.add(b1, a1));
+        stack.push(new BigDecimal(b1).add(a1));
         break;
       }
       case "-": {
         let a2 = stack.pop();
         let b2 = stack.pop();
-        stack.push(JSBI.subtract(b2, a2));
+        stack.push(new BigDecimal(b2).subtract(a2));
         break;
       }
       case "*": {
         let a3 = stack.pop();
         let b3 = stack.pop();
-        stack.push(JSBI.multiply(b3, a3));
+        let b3_ = stack.push(new BigDecimal(b3).multiply(a3));
         break;
       }
       case "/": {
         let a4 = stack.pop();
         let b4 = stack.pop();
-        stack.push(JSBI.divide(b4, a4));
+        stack.push(new BigDecimal(b4).divide(a4));
         break;
       }
       default:
-        stack.push(JSBI.BigInt(item));
+        stack.push(new BigDecimal(item));
     }
   }
   return String(stack.pop());

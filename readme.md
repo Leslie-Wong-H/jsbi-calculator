@@ -1,6 +1,6 @@
 # JSBI-Calculator
 
-JSBI-Calculator is a calculator utility to perform arbitrary integral arithmetic and exponentiation in BigInt, JSBI based.
+JSBI-Calculator is a calculator utility to perform arbitrary arithmetic computation, with the help of JSBI-based BigDecimal.
 
 ## Installation
 
@@ -56,8 +56,9 @@ console.log(resultTwo);
 
 ## Note:
 
-The following operations are available. Please mind the factors which are negative must start with "-"
-and be surrounded by parentheses, and positive ones can not start with "+".
+The following operations are available. Please mind the factors which are
+negative must start with "-" and be surrounded by parentheses, and
+positive ones can not start with "+".
 
 | Operation      | Symbol |
 | -------------- | ------ |
@@ -65,4 +66,6 @@ and be surrounded by parentheses, and positive ones can not start with "+".
 | Subtration     | `-`    |
 | Multiplication | `*`    |
 | Division       | `/`    |
-| Exponentiation | `^`    |
+
+## Under the hood:
+

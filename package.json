@@ -1,7 +1,7 @@
 {
   "name": "jsbi-calculator",
   "version": "0.0.1",
-  "description": "A calculator utility to perform arbitrary integral arithmetic and exponentiation in BigInt, JSBI based.",
+  "description": "JSBI-Calculator is a calculator utility to perform arbitrary arithmetic computation, with the help of JSBI-based BigDecimal.",
   "main": "dist/jsbi-calculator.js",
   "module": "dist/jsbi-calculator.mjs",
   "browser": "dist/jsbi-calculator-umd.js",
