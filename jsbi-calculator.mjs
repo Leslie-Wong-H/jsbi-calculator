@@ -1,14 +1,14 @@
 /*
  * @author Leslie Wong
  * @email 79917148leslie@gmail.com
- * @description a calculator utility to perform arbitrary integral arithmetic and exponentiation in BigInt, JSBI based.
+ * @description a calculator utility to perform arbitrary-presion arithmetic in BigDecimal, JSBI based.
  */
 "use strict";
 
 import JSBI from "jsbi";
 
 /**
- * Directly get the int result with arbitrary precision using jsbiCal and rpnParse
+ * Directly get the result with arbitrary precision using jsbiCal and rpnParse
  * @param {String} expression
  * @returns {String}
  */
@@ -18,8 +18,7 @@ function calculator(expression) {
 }
 
 /**
- * Transform the math expression string to array form, only arithmetic and
- * exponentiation are allowed. The factors which are negative must start with "-"
+ * Transform the math expression string to array form, arithmetic only. The factors which are negative must start with "-"
  * and be surrounded by parentheses, and positive ones can not start with "+".
  *
  * operators:
@@ -32,7 +31,6 @@ function calculator(expression) {
  *
  * "/" - division
  *
- * "^" - exponentiation
  * @param {String} expression
  * @returns {Array} arrayizedExpression
  */
@@ -115,12 +113,6 @@ function jsbiCal(tokens) {
         let a4 = stack.pop();
         let b4 = stack.pop();
         stack.push(JSBI.divide(b4, a4));
-        break;
-      }
-      case "^": {
-        let a5 = stack.pop();
-        let b5 = stack.pop();
-        stack.push(JSBI.exponentiate(b5, a5));
         break;
       }
       default:
