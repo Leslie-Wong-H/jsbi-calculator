@@ -58,7 +58,7 @@ class BigDecimal {
       )
     );
   }
-  multiple(num) {
+  multiply(num) {
     return BigDecimal._divRound(
       JSBI.multiply(this._n, new BigDecimal(num)._n),
       BigDecimal.SHIFT
@@ -72,11 +72,11 @@ class BigDecimal {
   }
   toString() {
     const s = this._n.toString().padStart(BigDecimal.DECIMALS + 1, "0");
-    return (
+    let r =
       s.slice(0, -BigDecimal.DECIMALS) +
       "." +
-      s.slice(-BigDecimal.DECIMALS).replace(/\.?0+$/, "")
-    );
+      s.slice(-BigDecimal.DECIMALS).replace(/\.?0+$/, "");
+    return r.slice(-1) === "." ? r.slice(0, -1) : r;
   }
 }
 
