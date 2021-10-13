@@ -12,6 +12,7 @@
 // limitations under the License.
 
 module.exports = {
+  parser: "babel-eslint",
   env: {
     browser: true,
     commonjs: true,
