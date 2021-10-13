@@ -141,10 +141,15 @@ function arrayizeExpression(expression) {
             acc[acc.length - 2] === "("
           ) {
             acc[acc.length - 1] += newCur;
+          // newCur(digit) next to symbols
           } else if (checkArray.indexOf(acc[acc.length - 1]) > -1 && newCur) {
             acc.push(newCur);
-          } else {
+          // newCur(digit) next to digit
+          } else if (acc.length !== 0 && acc[acc.length -1]) {
             acc[acc.length - 1] += newCur;
+          // newCur(digit) in the front of the expression
+          } else {
+            acc.push(newCur);
           }
       }
       return acc;
