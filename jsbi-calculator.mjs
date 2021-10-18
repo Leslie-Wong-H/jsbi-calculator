@@ -209,29 +209,6 @@ function jsbiCal(tokens) {
 function rnpParse(inp) {
   var outQueue = [];
   var opStack = [];
-  var assoc = {
-    "^": "right",
-    "*": "left",
-    "/": "left",
-    "+": "left",
-    "-": "left",
-  };
-
-  var prec = {
-    "^": 4,
-    "*": 3,
-    "/": 3,
-    "+": 2,
-    "-": 2,
-  };
-
-  Token.prototype.precedence = function () {
-    return prec[this.value];
-  };
-
-  Token.prototype.associativity = function () {
-    return assoc[this.value];
-  };
 
   // tokenize
   var tokens = tokenize(inp);
@@ -279,6 +256,30 @@ function peak(Arr) {
 
 function tokenize(expArr) {
   var result = [];
+
+  var assoc = {
+    "^": "right",
+    "*": "left",
+    "/": "left",
+    "+": "left",
+    "-": "left",
+  };
+
+  var prec = {
+    "^": 4,
+    "*": 3,
+    "/": 3,
+    "+": 2,
+    "-": 2,
+  };
+
+  Token.prototype.precedence = function () {
+    return prec[this.value];
+  };
+
+  Token.prototype.associativity = function () {
+    return assoc[this.value];
+  };
 
   // array of tokens
   if (Array.isArray(expArr)) {
