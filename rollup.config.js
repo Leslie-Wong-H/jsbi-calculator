@@ -15,13 +15,15 @@ import babel from "rollup-plugin-babel";
 import pkg from "./package.json";
 import minify from "rollup-plugin-babel-minify";
 import nodeResolve from "rollup-plugin-node-resolve";
+import external from "rollup-plugin-peer-deps-external";
 
 export default [
   {
     input: "jsbi-calculator.mjs",
     external: ["jsbi"],
     plugins: [
-      nodeResolve({ preferBuiltins: false }),
+      external(),
+      babel(),
       minify({
         comments: false,
       }),
@@ -35,7 +37,6 @@ export default [
   },
   {
     input: "jsbi-calculator.mjs",
-    external: ["jsbi"],
     plugins: [
       nodeResolve({ preferBuiltins: false }),
       babel(),
@@ -46,12 +47,11 @@ export default [
     output: [
       // Create a browser-friendly UMD build.
       {
-        name: "jsbi-calculator",
+        name: "JBC",
         file: pkg.browser,
         format: "umd",
-        globals: {
-          jsbi: "JSBI",
-        },
+        exports: "default",
+        sourcemap: true,
       },
     ],
   },
