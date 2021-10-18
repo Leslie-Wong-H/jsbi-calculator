@@ -331,4 +331,11 @@ function isRightParenthesis(ch) {
   return ch === ")";
 }
 
-export default { calculator, arrayizeExpression, jsbiCal, rnpParse };
+const JBC = {
+  calculator,
+  arrayizeExpression,
+  jsbiCal,
+  rnpParse,
+};
+
+export default JBC;
