@@ -1,7 +1,7 @@
 /*
  * @author Leslie Wong
  * @email 79917148leslie@gmail.com
- * @description a calculator utility to perform arbitrary-presion arithmetic in BigDecimal, JSBI based.
+ * @description a calculator utility to perform arbitrary-precision arithmetic in BigDecimal, JSBI based.
  */
 
 "use strict";
@@ -141,13 +141,13 @@ function arrayizeExpression(expression) {
             acc[acc.length - 2] === "("
           ) {
             acc[acc.length - 1] += newCur;
-          // newCur(digit) next to symbols
+            // newCur(digit) next to symbols
           } else if (checkArray.indexOf(acc[acc.length - 1]) > -1 && newCur) {
             acc.push(newCur);
-          // newCur(digit) next to digit
-          } else if (acc.length !== 0 && acc[acc.length -1]) {
+            // newCur(digit) next to digit
+          } else if (acc.length !== 0 && acc[acc.length - 1]) {
             acc[acc.length - 1] += newCur;
-          // newCur(digit) in the front of the expression
+            // newCur(digit) in the front of the expression
           } else {
             acc.push(newCur);
           }
@@ -330,4 +330,4 @@ function isRightParenthesis(ch) {
   return ch === ")";
 }
 
-export { calculator, arrayizeExpression, jsbiCal, rnpParse };
+export default { calculator, arrayizeExpression, jsbiCal, rnpParse };
