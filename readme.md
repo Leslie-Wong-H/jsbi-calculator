@@ -57,8 +57,8 @@ console.log(resultTwo);
 ## Note:
 
 The following operations are available. Please mind the factors which are
-negative must start with "-" and be surrounded by parentheses, and
-positive ones can not start with "+".
+negative must start with "-" and be surrounded by parentheses, e.g. (-11) and
+the positive ones can not start with "+".
 
 | Operation      | Symbol |
 | -------------- | ------ |
@@ -68,4 +68,3 @@ positive ones can not start with "+".
 | Division       | `/`    |
 
 ## Under the hood:
-
