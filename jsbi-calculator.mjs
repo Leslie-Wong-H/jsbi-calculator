@@ -109,7 +109,7 @@ function calculator(expression) {
  */
 function arrayizeExpression(expression) {
   // verify the accuracy of expression first
-  var verified;
+  let verified;
   try {
     let verify = new Function("return (" + expression + ") || 0");
     verify();
@@ -120,8 +120,9 @@ function arrayizeExpression(expression) {
     return [];
   }
   if (verified) {
-    var arrayizedExpression = expression.split("").reduce((acc = [], cur) => {
-      var newCur = cur.trim();
+    const checkArray = ["(", ")", "+", "-", "*", "/"];
+    let arrayizedExpression = expression.split("").reduce((acc = [], cur) => {
+      const newCur = cur.trim();
       switch (newCur) {
         case "(":
         case ")":
@@ -133,7 +134,6 @@ function arrayizeExpression(expression) {
           break;
 
         default:
-          var checkArray = ["(", ")", "+", "-", "*", "/"];
           // in case of the negative nubmer (must be surrounded by parenthesis)
           if (
             acc.length >= 2 &&
@@ -207,11 +207,11 @@ function jsbiCal(tokens) {
  * @returns {Array}
  */
 function rnpParse(inp) {
-  var outQueue = [];
-  var opStack = [];
+  let outQueue = [];
+  let opStack = [];
 
   // tokenize
-  var tokens = tokenize(inp);
+  const tokens = tokenize(inp);
 
   if (Array.isArray(tokens)) {
     tokens.forEach(function (t) {
@@ -255,9 +255,9 @@ function peak(Arr) {
 }
 
 function tokenize(expArr) {
-  var result = [];
+  let result = [];
 
-  var assoc = {
+  const assoc = {
     "^": "right",
     "*": "left",
     "/": "left",
@@ -265,7 +265,7 @@ function tokenize(expArr) {
     "-": "left",
   };
 
-  var prec = {
+  const prec = {
     "^": 4,
     "*": 3,
     "/": 3,
