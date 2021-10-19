@@ -1,5 +1,5 @@
 import { assert, expect } from "chai";
-import JBC from "../jsbi-calculator.mjs";
+import JBC from "../src/jsbi-calculator.mjs";
 
 const { calculator, arrayizeExpression, rnpParse, jsbiCal } = JBC;
 

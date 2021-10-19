@@ -19,7 +19,7 @@ import external from "rollup-plugin-peer-deps-external";
 
 export default [
   {
-    input: "jsbi-calculator.mjs",
+    input: "src/jsbi-calculator.mjs",
     external: ["jsbi"],
     plugins: [
       external(),
@@ -36,7 +36,7 @@ export default [
     ],
   },
   {
-    input: "jsbi-calculator.mjs",
+    input: "src/jsbi-calculator.mjs",
     plugins: [
       nodeResolve({ preferBuiltins: false }),
       babel(),

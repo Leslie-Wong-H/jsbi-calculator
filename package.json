@@ -8,7 +8,7 @@
   "scripts": {
     "test": "node --experimental-modules test/test.mjs",
     "build": "rollup --config rollup.config.js",
-    "lint": "eslint --fix jsbi-calculator.mjs"
+    "lint": "eslint --fix src/jsbi-calculator.mjs"
   },
   "keywords": [
     "jsbi",
