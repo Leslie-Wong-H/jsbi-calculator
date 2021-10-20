@@ -6,7 +6,8 @@
   "module": "dist/jsbi-calculator.mjs",
   "browser": "dist/jsbi-calculator-umd.js",
   "scripts": {
-    "test": "node --experimental-modules test/test.mjs",
+    "test:cjs": "node test/test.js",
+    "test:esm": "node --experimental-modules test/test.mjs",
     "build": "rollup --config rollup.config.js",
     "lint": "eslint --fix src/jsbi-calculator.mjs"
   },
