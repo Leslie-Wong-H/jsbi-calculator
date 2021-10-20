@@ -1,7 +1,7 @@
 import { assert, expect } from "chai";
 import JBC from "../src/jsbi-calculator.mjs";
 
-const { calculator, arrayizeExpression, rnpParse, jsbiCal } = JBC;
+const { calculator, arrayizeExpression, rpnParse, jsbiCal } = JBC;
 
 let expression;
 
@@ -34,13 +34,13 @@ assert.equal(
 );
 
 let rpn, result;
-rpn = rnpParse(["(", 10, ")", "+", "98", "*", "98", "*", "(", 78, ")"]);
+rpn = rpnParse(["(", 10, ")", "+", "98", "*", "98", "*", "(", 78, ")"]);
 result = jsbiCal(rpn);
 
 expect(result).to.be.a("string");
 expect(result).to.equal("749122");
 
-rpn = rnpParse(["(", 10.3, ")", "+", "98", "*", "98", "*", "(", 78, ")"]);
+rpn = rpnParse(["(", 10.3, ")", "+", "98", "*", "98", "*", "(", 78, ")"]);
 result = jsbiCal(rpn);
 
 expect(result).to.be.a("string");

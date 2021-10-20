@@ -87,7 +87,7 @@ class BigDecimal {
  */
 
 function calculator(expression) {
-  return jsbiCal(rnpParse(arrayizeExpression(expression)));
+  return jsbiCal(rpnParse(arrayizeExpression(expression)));
 }
 
 /**
@@ -201,12 +201,12 @@ function jsbiCal(tokens) {
 }
 
 /**
- * To generate RNP(Reverse Polish Notaion) using the shunting-yard algorithm
+ * To generate rpn(Reverse Polish Notaion) using the shunting-yard algorithm
  *  reference: https://www.freecodecamp.org/news/parsing-math-expressions-with-javascript-7e8f5572276e/
  * @param {Array} inp
  * @returns {Array}
  */
-function rnpParse(inp) {
+function rpnParse(inp) {
   let outQueue = [];
   let opStack = [];
 
@@ -335,7 +335,7 @@ const JBC = {
   calculator,
   arrayizeExpression,
   jsbiCal,
-  rnpParse,
+  rpnParse,
 };
 
 export default JBC;
