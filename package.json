@@ -22,7 +22,9 @@
     "jsbi",
     "calculator",
     "math",
-    "expression"
+    "expression",
+    "bigint",
+    "bigdecimal"
   ],
   "author": "Leslie Wong",
   "email": "79917148leslie@gmail.com",
