@@ -5,6 +5,9 @@
   "main": "dist/jsbi-calculator.js",
   "module": "dist/jsbi-calculator.mjs",
   "browser": "dist/jsbi-calculator-umd.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "rollup --config rollup.config.js  --watch",
     "build": "rollup --config rollup.config.js",

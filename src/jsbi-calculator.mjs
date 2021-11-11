@@ -11,7 +11,7 @@ import JSBI from "jsbi";
 /**
  *
  * @description A custom BigDecimal class wrapped with JSBI,
- * which is inspred from trincot's answer.
+ * inspired from trincot's answer.
  * https://stackoverflow.com/a/66939244/8808175
  *
  */
