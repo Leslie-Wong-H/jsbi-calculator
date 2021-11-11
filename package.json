@@ -12,7 +12,8 @@
     "test:cjs": "node test/test.js",
     "test:esm": "node --experimental-modules test/test.mjs",
     "test:browser": "node test_browser.js",
-    "lint": "eslint --fix src/jsbi-calculator.mjs"
+    "lint": "eslint --fix src/jsbi-calculator.mjs",
+    "ci": "npm run lint && npm run build && npm run test"
   },
   "keywords": [
     "jsbi",
