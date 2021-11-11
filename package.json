@@ -1,0 +1,52 @@
+{
+  "name": "jsbi-calculator",
+  "version": "0.1.0",
+  "description": "JSBI-Calculator is a calculator utility to perform arbitrary arithmetic computation, with the help of JSBI-based BigDecimal.",
+  "main": "dist/jsbi-calculator.js",
+  "module": "dist/jsbi-calculator.mjs",
+  "browser": "dist/jsbi-calculator-umd.js",
+  "scripts": {
+    "dev": "rollup --config rollup.config.js  --watch",
+    "build": "rollup --config rollup.config.js",
+    "test": "npm run test:cjs && npm run test:esm && npm run test:browser",
+    "test:cjs": "node test/test.js",
+    "test:esm": "node --experimental-modules test/test.mjs",
+    "test:browser": "node test_browser.js",
+    "lint": "eslint --fix src/jsbi-calculator.mjs"
+  },
+  "keywords": [
+    "jsbi",
+    "calculator",
+    "math",
+    "expression"
+  ],
+  "author": "Leslie Wong",
+  "email": "79917148leslie@gmail.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "husky": "^4.3.8",
+    "prettier": "^2.3.2",
+    "request": "^2.88.2",
+    "rollup": "^1.19.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-babel-minify": "^9.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "tape": "^4.13.2"
+  },
+  "dependencies": {
+    "jsbi": "~3.1.6"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "sh commit-msg"
+    }
+  }
+}
