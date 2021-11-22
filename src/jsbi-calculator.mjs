@@ -19,7 +19,18 @@ class BigDecimal {
   // Configuration: constants
   static DECIMALS = 18; // number of decimals on all instances
   static ROUNDED = true; // number are truncated (false) or rounded (true)
-  static SHIFT = JSBI.BigInt("1" + "0".repeat(BigDecimal.DECIMALS)); // derived constant
+  static SHIFT = JSBI.BigInt(
+    "1" +
+      String(
+        ["0"].map((e) => {
+          let result = "";
+          for (let i = 0; i < BigDecimal.DECIMALS; i++) {
+            result += e;
+          }
+          return result;
+        })
+      )
+  ); // derived constant
   constructor(value) {
     if (value instanceof BigDecimal) return value;
     let [ints, decis] = String(value).split(".").concat("");
