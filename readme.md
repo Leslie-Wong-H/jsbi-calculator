@@ -8,6 +8,10 @@ JSBI-Calculator is a calculator utility to perform arbitrary arithmetic computat
 > npm install jsbi-calculator
 ```
 
+## Showcase
+
+![Showcase](./assets/showcase.png)
+
 ## Usage
 
 > For module:
@@ -62,8 +66,7 @@ console.log(resultTwo);
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jsbi-calculator Test</title>
-    <script src="https://www.chaijs.com/chai.js"></script>
-    <script src="../dist/jsbi-calculator-umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbi-calculator/dist/jsbi-calculator-umd.js"></script>
   </head>
   <body></body>
   <script type="text/javascript">
