@@ -8,6 +8,76 @@
 
 import JSBI from "jsbi";
 
+// https://github.com/uxitten/polyfill/blob/master/string.polyfill.js
+if (!String.prototype.repeat) {
+  String.prototype.repeat = function (count) {
+    "use strict";
+    if (this == null) {
+      throw new TypeError("can't convert " + this + " to object");
+    }
+    var str = "" + this;
+    count = +count;
+    if (count != count) {
+      count = 0;
+    }
+    if (count < 0) {
+      throw new RangeError("repeat count must be non-negative");
+    }
+    if (count == Infinity) {
+      throw new RangeError("repeat count must be less than infinity");
+    }
+    count = Math.floor(count);
+    if (str.length == 0 || count == 0) {
+      return "";
+    }
+    if (str.length * count >= 1 << 28) {
+      throw new RangeError(
+        "repeat count must not overflow maximum string size"
+      );
+    }
+    var rpt = "";
+    for (;;) {
+      if ((count & 1) == 1) {
+        rpt += str;
+      }
+      count >>>= 1;
+      if (count == 0) {
+        break;
+      }
+      str += str;
+    }
+    return rpt;
+  };
+}
+if (!String.prototype.padStart) {
+  String.prototype.padStart = function (targetLength, padString) {
+    targetLength = targetLength >> 0;
+    padString = String(typeof padString !== "undefined" ? padString : " ");
+    if (this.length > targetLength || padString === "") {
+      return String(this);
+    }
+    targetLength = targetLength - this.length;
+    if (targetLength > padString.length) {
+      padString += padString.repeat(targetLength / padString.length);
+    }
+    return padString.slice(0, targetLength) + String(this);
+  };
+}
+if (!String.prototype.padEnd) {
+  String.prototype.padEnd = function (targetLength, padString) {
+    targetLength = targetLength >> 0;
+    padString = String(typeof padString !== "undefined" ? padString : " ");
+    if (this.length > targetLength || padString === "") {
+      return String(this);
+    }
+    targetLength = targetLength - this.length;
+    if (targetLength > padString.length) {
+      padString += padString.repeat(targetLength / padString.length);
+    }
+    return String(this) + padString.slice(0, targetLength);
+  };
+}
+
 /**
  *
  * @description A custom BigDecimal class wrapped with JSBI,
@@ -19,18 +89,7 @@ class BigDecimal {
   // Configuration: constants
   static DECIMALS = 18; // number of decimals on all instances
   static ROUNDED = true; // number are truncated (false) or rounded (true)
-  static SHIFT = JSBI.BigInt(
-    "1" +
-      String(
-        ["0"].map((e) => {
-          let result = "";
-          for (let i = 0; i < BigDecimal.DECIMALS; i++) {
-            result += e;
-          }
-          return result;
-        })
-      )
-  ); // derived constant
+  static SHIFT = JSBI.BigInt("1" + "0".repeat(BigDecimal.DECIMALS)); // derived constant
   constructor(value) {
     if (value instanceof BigDecimal) return value;
     let [ints, decis] = String(value).split(".").concat("");
@@ -178,7 +237,7 @@ function arrayizeExpression(expression) {
 function jsbiCal(tokens) {
   // declare stack
   let stack = [];
-  for (let item of tokens) {
+  tokens.forEach((item) => {
     switch (item) {
       case "+": {
         let a1 = stack.pop();
@@ -195,7 +254,7 @@ function jsbiCal(tokens) {
       case "*": {
         let a3 = stack.pop();
         let b3 = stack.pop();
-        let b3_ = stack.push(new BigDecimal(b3).multiply(a3));
+        stack.push(new BigDecimal(b3).multiply(a3));
         break;
       }
       case "/": {
@@ -207,7 +266,7 @@ function jsbiCal(tokens) {
       default:
         stack.push(new BigDecimal(item));
     }
-  }
+  });
   return String(stack.pop());
 }
 
