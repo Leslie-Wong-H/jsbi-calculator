@@ -17,9 +17,11 @@ import minify from "rollup-plugin-babel-minify";
 import nodeResolve from "rollup-plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 
+const input = "tsc-out/jsbi-calculator.mjs";
+
 export default [
   {
-    input: "src/jsbi-calculator.mjs",
+    input: input,
     external: ["jsbi"],
     plugins: [
       external(),
@@ -36,7 +38,7 @@ export default [
     ],
   },
   {
-    input: "src/jsbi-calculator.mjs",
+    input: input,
     plugins: [
       nodeResolve({ preferBuiltins: false }),
       babel(),

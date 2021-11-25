@@ -5,17 +5,19 @@
   "main": "dist/jsbi-calculator.js",
   "module": "dist/jsbi-calculator.mjs",
   "browser": "dist/jsbi-calculator-umd.js",
+  "types": "types/jsbi-calculator.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "rollup --config rollup.config.js  --watch",
-    "build": "rollup --config rollup.config.js",
+    "dev": "tsc --watch",
+    "build": "tsc && for f in tsc-out/*.js; do mv -- \"$f\" \"${f%.js}.mjs\"; done && rollup --config rollup.config.js",
+    "build:win": "tsc && for %a in (tsc-out/*.js) do for /f \"tokens=1,* delims=.\" %b in (\"%~nxa\") do ren \"tsc-out\\%a\" \"%b.mjs\" && rollup --config rollup.config.js",
     "test": "npm run test:cjs && npm run test:esm && npm run test:browser",
     "test:cjs": "node test/test.js",
     "test:esm": "node --experimental-modules test/test.mjs",
     "test:browser": "node test_browser.js",
-    "lint": "eslint --fix src/jsbi-calculator.mjs",
+    "lint": "eslint . --ext ts --fix",
     "ci": "npm run lint && npm run build && npm run test"
   },
   "keywords": [
@@ -41,6 +43,8 @@
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-transform-object-assign": "^7.16.0",
     "@babel/preset-env": "^7.5.5",
+    "@typescript-eslint/eslint-plugin": "4.29.1",
+    "@typescript-eslint/parser": "4.29.1",
     "babel-eslint": "^10.1.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "chai": "^4.3.4",
@@ -55,7 +59,8 @@
     "rollup-plugin-babel-minify": "^9.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
-    "tape": "^4.13.2"
+    "tape": "^4.13.2",
+    "typescript": "^4.5.2"
   },
   "dependencies": {
     "jsbi": "4.1.0"
