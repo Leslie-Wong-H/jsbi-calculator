@@ -1,0 +1,33 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "downlevelIteration": true,
+    "importHelpers": false,
+    "sourceMap": false,
+    "inlineSources": false,
+    "module": "es6",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noErrorTruncation": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": true,
+    "strict": false,
+    "lib": ["es5", "ES2017"],
+    "preserveConstEnums": false,
+    "skipDefaultLibCheck": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "stripInternal": true,
+    "target": "es2015",
+    "outDir": "tsc-out/",
+    "types": []
+  }
+}

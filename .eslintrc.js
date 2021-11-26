@@ -12,13 +12,14 @@
 // limitations under the License.
 
 module.exports = {
-  parser: "babel-eslint",
+  parser: "@typescript-eslint/parser",
   env: {
     browser: true,
     commonjs: true,
     es6: true,
     node: true,
   },
+  plugins: ["@typescript-eslint"],
   extends: ["eslint:recommended", "plugin:import/errors", "prettier"],
   parserOptions: {
     ecmaVersion: 2018,
@@ -30,5 +31,6 @@ module.exports = {
   rules: {
     "no-console": ["off"],
     "no-unused-vars": ["off"],
+    "no-underscore-dangle": ["off"],
   },
 };

@@ -90,7 +90,9 @@ class BigDecimal {
   static DECIMALS = 18; // number of decimals on all instances
   static ROUNDED = true; // number are truncated (false) or rounded (true)
   static SHIFT = JSBI.BigInt("1" + "0".repeat(BigDecimal.DECIMALS)); // derived constant
-  constructor(value) {
+  private _n: JSBI;
+  constructor(value: BigDecimal | string) {
+    this._n = JSBI.BigInt(0);
     if (value instanceof BigDecimal) return value;
     let [ints, decis] = String(value).split(".").concat("");
     this._n = JSBI.add(
@@ -102,20 +104,20 @@ class BigDecimal {
     );
   }
 
-  static fromJSBIBigInt(jsbibigint) {
+  static fromJSBIBigInt(jsbibigint: JSBI): BigDecimal {
     return Object.assign(Object.create(BigDecimal.prototype), {
       _n: jsbibigint,
     });
   }
-  add(num) {
+  add(num: BigDecimal | string): BigDecimal {
     return BigDecimal.fromJSBIBigInt(JSBI.add(this._n, new BigDecimal(num)._n));
   }
-  subtract(num) {
+  subtract(num: BigDecimal | string): BigDecimal {
     return BigDecimal.fromJSBIBigInt(
       JSBI.subtract(this._n, new BigDecimal(num)._n)
     );
   }
-  static _divRound(dividend, divisor) {
+  static _divRound(dividend: JSBI, divisor: JSBI): BigDecimal {
     return BigDecimal.fromJSBIBigInt(
       JSBI.add(
         JSBI.divide(dividend, divisor),
@@ -128,19 +130,19 @@ class BigDecimal {
       )
     );
   }
-  multiply(num) {
+  multiply(num: BigDecimal | string): BigDecimal {
     return BigDecimal._divRound(
       JSBI.multiply(this._n, new BigDecimal(num)._n),
       BigDecimal.SHIFT
     );
   }
-  divide(num) {
+  divide(num: BigDecimal | string): BigDecimal {
     return BigDecimal._divRound(
       JSBI.multiply(this._n, BigDecimal.SHIFT),
       new BigDecimal(num)._n
     );
   }
-  toString() {
+  toString(): string {
     const s = this._n.toString().padStart(BigDecimal.DECIMALS + 1, "0");
     let r =
       s.slice(0, -BigDecimal.DECIMALS) +
@@ -156,7 +158,7 @@ class BigDecimal {
  * @returns {String}
  */
 
-function calculator(expression) {
+function calculator(expression: string): string {
   return jsbiCal(rpnParse(arrayizeExpression(expression)));
 }
 
@@ -177,7 +179,7 @@ function calculator(expression) {
  * @param {String} expression
  * @returns {Array} arrayizedExpression
  */
-function arrayizeExpression(expression) {
+function arrayizeExpression(expression: string): string[] {
   // verify the accuracy of expression first
   let verified;
   try {
@@ -185,46 +187,49 @@ function arrayizeExpression(expression) {
     verify();
     verified = true;
   } catch (e) {
-    console.log("The expression is not accurate");
     verified = false;
-    return [];
+    throw new Error("The expression is not accurate");
   }
   if (verified) {
     const checkArray = ["(", ")", "+", "-", "*", "/"];
-    let arrayizedExpression = expression.split("").reduce((acc = [], cur) => {
-      const newCur = cur.trim();
-      switch (newCur) {
-        case "(":
-        case ")":
-        case "+":
-        case "-":
-        case "*":
-        case "/":
-          acc.push(newCur);
-          break;
+    let arrayizedExpression = expression
+      .split("")
+      .reduce((acc: string[] = [], cur) => {
+        const newCur: string = cur.trim();
+        switch (newCur) {
+          case "(":
+          case ")":
+          case "+":
+          case "-":
+          case "*":
+          case "/":
+            acc.push(newCur);
+            break;
 
-        default:
-          // in case of the negative nubmer (must be surrounded by parenthesis)
-          if (
-            acc.length >= 2 &&
-            acc[acc.length - 1] === "-" &&
-            acc[acc.length - 2] === "("
-          ) {
-            acc[acc.length - 1] += newCur;
-            // newCur(digit) next to symbols
-          } else if (checkArray.indexOf(acc[acc.length - 1]) > -1 && newCur) {
-            acc.push(newCur);
-            // newCur(digit) next to digit
-          } else if (acc.length !== 0 && acc[acc.length - 1]) {
-            acc[acc.length - 1] += newCur;
-            // newCur(digit) in the front of the expression
-          } else {
-            acc.push(newCur);
-          }
-      }
-      return acc;
-    }, []);
+          default:
+            // in case of the negative nubmer (must be surrounded by parenthesis)
+            if (
+              acc.length >= 2 &&
+              acc[acc.length - 1] === "-" &&
+              acc[acc.length - 2] === "("
+            ) {
+              acc[acc.length - 1] += newCur;
+              // newCur(digit) next to symbols
+            } else if (checkArray.indexOf(acc[acc.length - 1]) > -1 && newCur) {
+              acc.push(newCur);
+              // newCur(digit) next to digit
+            } else if (acc.length !== 0 && acc[acc.length - 1]) {
+              acc[acc.length - 1] += newCur;
+              // newCur(digit) in the front of the expression
+            } else {
+              acc.push(newCur);
+            }
+        }
+        return acc;
+      }, []);
     return arrayizedExpression;
+  } else {
+    return [];
   }
 }
 
@@ -234,33 +239,33 @@ function arrayizeExpression(expression) {
  * @param {Array} tokens
  * @returns
  */
-function jsbiCal(tokens) {
+function jsbiCal(tokens: string[]): string {
   // declare stack
-  let stack = [];
+  let stack: BigDecimal[] = [];
   tokens.forEach((item) => {
     switch (item) {
       case "+": {
         let a1 = stack.pop();
         let b1 = stack.pop();
-        stack.push(new BigDecimal(b1).add(a1));
+        a1 && b1 && stack.push(new BigDecimal(b1).add(a1));
         break;
       }
       case "-": {
         let a2 = stack.pop();
         let b2 = stack.pop();
-        stack.push(new BigDecimal(b2).subtract(a2));
+        a2 && b2 && stack.push(new BigDecimal(b2).subtract(a2));
         break;
       }
       case "*": {
         let a3 = stack.pop();
         let b3 = stack.pop();
-        stack.push(new BigDecimal(b3).multiply(a3));
+        a3 && b3 && stack.push(new BigDecimal(b3).multiply(a3));
         break;
       }
       case "/": {
         let a4 = stack.pop();
         let b4 = stack.pop();
-        stack.push(new BigDecimal(b4).divide(a4));
+        a4 && b4 && stack.push(new BigDecimal(b4).divide(a4));
         break;
       }
       default:
@@ -276,34 +281,36 @@ function jsbiCal(tokens) {
  * @param {Array} inp
  * @returns {Array}
  */
-function rpnParse(inp) {
-  let outQueue = [];
-  let opStack = [];
+function rpnParse(inp: string[]): string[] {
+  let outQueue: Token[] = [];
+  let opStack: Token[] = [];
 
   // tokenize
   const tokens = tokenize(inp);
 
   if (Array.isArray(tokens)) {
-    tokens.forEach(function (t) {
+    tokens.forEach(function (t: Token) {
       if (isDigit(t.value) || isLetter(t.value)) {
         outQueue.push(t);
       } else if (isOperator(t.value)) {
         while (
           opStack.length > 0 &&
+          t.associativity &&
+          t.precedence &&
           ((t.associativity() === "left" &&
             t.precedence() <= peak(opStack).precedence()) ||
             (t.associativity() === "right" &&
               t.precedence() < peak(opStack).precedence()) ||
             t.type === "Left Parenthesis")
         ) {
-          outQueue.push(opStack.pop());
+          outQueue.push(opStack.pop() as Token);
         }
         opStack.push(t);
       } else if (isLeftParenthesis(t.value)) {
         opStack.push(t);
       } else if (isRightParenthesis(t.value)) {
         while (opStack.length > 0 && peak(opStack).type === "Operator") {
-          outQueue.push(opStack.pop());
+          outQueue.push(opStack.pop() as Token);
         }
         if (opStack.length > 0 && peak(opStack).type === "Left Parenthesis") {
           opStack.pop();
@@ -316,7 +323,7 @@ function rpnParse(inp) {
   return outQueue.concat(opStack.reverse()).map((el) => el.value);
 }
 
-function peak(Arr) {
+function peak(Arr: any[]): any | undefined {
   if (Array.isArray(Arr) && Arr.length > 0) {
     return Arr.slice(-1)[0];
   } else {
@@ -324,10 +331,33 @@ function peak(Arr) {
   }
 }
 
-function tokenize(expArr) {
-  let result = [];
+interface Token {
+  type: string;
+  value: "^" | "*" | "/" | "+" | "-";
+  associativity?: () => "left" | "right";
+  precedence?: () => 2 | 3 | 4;
+}
 
-  const assoc = {
+interface Assoc {
+  "^": "right";
+  "*": "left";
+  "/": "left";
+  "+": "left";
+  "-": "left";
+}
+
+interface Prec {
+  "^": 4;
+  "*": 3;
+  "/": 3;
+  "+": 2;
+  "-": 2;
+}
+
+function tokenize(expArr: string[]): Token[] {
+  let result: Token[] = [];
+
+  const assoc: Assoc = {
     "^": "right",
     "*": "left",
     "/": "left",
@@ -335,7 +365,7 @@ function tokenize(expArr) {
     "-": "left",
   };
 
-  const prec = {
+  const prec: Prec = {
     "^": 4,
     "*": 3,
     "/": 3,
@@ -343,11 +373,16 @@ function tokenize(expArr) {
     "-": 2,
   };
 
-  Token.prototype.precedence = function () {
+  const Token = function (this: Token, type: string, value: Token["value"]) {
+    this.type = type;
+    this.value = value;
+  };
+
+  Token.prototype.precedence = function (this: Token): 2 | 3 | 4 {
     return prec[this.value];
   };
 
-  Token.prototype.associativity = function () {
+  Token.prototype.associativity = function (this: Token): "left" | "right" {
     return assoc[this.value];
   };
 
@@ -355,49 +390,44 @@ function tokenize(expArr) {
   if (Array.isArray(expArr)) {
     expArr.forEach(function (char, idx) {
       if (isDigit(char)) {
-        result.push(new Token("Literal", char));
+        result.push(new (Token as any)("Literal", char));
       } else if (isLetter(char)) {
-        result.push(new Token("Variable", char));
+        result.push(new (Token as any)("Variable", char));
       } else if (isOperator(char)) {
-        result.push(new Token("Operator", char));
+        result.push(new (Token as any)("Operator", char));
       } else if (isLeftParenthesis(char)) {
-        result.push(new Token("Left Parenthesis", char));
+        result.push(new (Token as any)("Left Parenthesis", char));
       } else if (isRightParenthesis(char)) {
-        result.push(new Token("Right Parenthesis", char));
+        result.push(new (Token as any)("Right Parenthesis", char));
       } else if (isComma(char)) {
-        result.push(new Token("Function Argument Seperator", char));
+        result.push(new (Token as any)("Function Argument Seperator", char));
       }
     });
   }
   return result;
 }
 
-function Token(type, value) {
-  this.type = type;
-  this.value = value;
-}
-
-function isComma(ch) {
+function isComma(ch: string): boolean {
   return ch === ",";
 }
 
-function isDigit(ch) {
+function isDigit(ch: string): boolean {
   return /\d/.test(ch);
 }
 
-function isLetter(ch) {
+function isLetter(ch: string): boolean {
   return /[a-z]/i.test(ch);
 }
 
-function isOperator(ch) {
+function isOperator(ch: string): boolean {
   return /\+|-|\*|\/|\^/.test(ch);
 }
 
-function isLeftParenthesis(ch) {
+function isLeftParenthesis(ch: string): boolean {
   return ch === "(";
 }
 
-function isRightParenthesis(ch) {
+function isRightParenthesis(ch: string): boolean {
   return ch === ")";
 }
 
