@@ -1,6 +1,6 @@
 {
   "name": "jsbi-calculator",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "JSBI-Calculator is a calculator utility to perform arbitrary arithmetic computation, with the help of JSBI-based BigDecimal.",
   "main": "dist/jsbi-calculator.js",
   "module": "dist/jsbi-calculator.mjs",
