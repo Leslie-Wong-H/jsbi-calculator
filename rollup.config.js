@@ -53,7 +53,7 @@ export default [
         file: pkg.browser,
         format: "umd",
         exports: "default",
-        sourcemap: true,
+        sourcemap: false,
       },
     ],
   },
