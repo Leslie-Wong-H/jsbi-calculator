@@ -10,7 +10,7 @@ JSBI-Calculator is a calculator utility to perform arbitrary arithmetic computat
 
 ## Showcase
 
-![Showcase](./assets/showcase.png)
+![Showcase](https://i.loli.net/2021/12/03/aADG5LxcZ2fh1vS.png)
 
 ## Usage
 
@@ -104,5 +104,17 @@ the positive ones can not start with "+".
 | Subtration     | `-`    |
 | Multiplication | `*`    |
 | Division       | `/`    |
+
+## Thanks
+
+Great inspiration by the following resources.
+
+[GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi)
+
+[trincot's answer to _BigDecimal in JavaScript_](https://stackoverflow.com/a/66939244/8808175)
+
+[LeetCode150 - Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
+
+[Parsing math expressions with JavaScript - FreeCodeCamp](https://www.freecodecamp.org/news/parsing-math-expressions-with-javascript-7e8f5572276e/)
 
 ## Under the hood
