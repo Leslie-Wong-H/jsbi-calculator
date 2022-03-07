@@ -1,7 +1,7 @@
-const chai = require('chai');
+const chai = require("chai");
 const JBC = require("../dist/jsbi-calculator.js");
 
-const { assert, expect } = chai
+const { assert, expect } = chai;
 const { calculator, arrayizeExpression, rpnParse, jsbiCal } = JBC;
 
 let expression;
@@ -32,6 +32,20 @@ assert.equal(
   calculator(expression),
   "749122",
   "The result of expression equals to 749122"
+);
+
+expression = "(19 -20)/20";
+
+assert.typeOf(expression, "string", "The variable expression is a string");
+assert.lengthOf(
+  arrayizeExpression(expression),
+  7,
+  "The tokenized expression has a length of 7"
+);
+assert.equal(
+  calculator(expression),
+  "-0.05",
+  "The result of expression equals to -0.05"
 );
 
 let rpn, result;

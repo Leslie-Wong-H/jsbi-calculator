@@ -143,11 +143,21 @@ class BigDecimal {
     );
   }
   toString(): string {
-    const s = this._n.toString().padStart(BigDecimal.DECIMALS + 1, "0");
+    // issue #15:
+    // jsbi - calculator not working
+    // when the result of division is negative and its abs value is less than one
+    let s = this._n.toString();
+    let n = s.startsWith("-");
+    if (n) {
+      s = s.slice(1).padStart(BigDecimal.DECIMALS + 1, "0");
+    } else {
+      s = s.padStart(BigDecimal.DECIMALS + 1, "0");
+    }
     let r =
       s.slice(0, -BigDecimal.DECIMALS) +
       "." +
       s.slice(-BigDecimal.DECIMALS).replace(/\.?0+$/, "");
+    n && (r = "-" + r);
     return r.slice(-1) === "." ? r.slice(0, -1) : r;
   }
 }
