@@ -2,6 +2,8 @@
 
 JSBI-Calculator is a calculator utility to perform arbitrary arithmetic computation, with the help of JSBI-based BigDecimal.
 
+Remarkable contribution from this project to [GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi/issues/79)
+
 ## Installation
 
 ```
