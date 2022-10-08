@@ -142,6 +142,26 @@ class BigDecimal {
       new BigDecimal(num)._n
     );
   }
+  // Sqrt operation utilizing Newton's method
+  static sqrt(num: BigDecimal | string): BigDecimal | typeof NaN {
+    if (new BigDecimal(num).toString() === "0") return new BigDecimal("0");
+    if (new BigDecimal(num).toString().startsWith("-")) return NaN;
+    let result = new BigDecimal(num);
+    let distance: BigDecimal | "0" = "0";
+    do {
+      result = new BigDecimal(result)
+        .add(new BigDecimal(num).divide(new BigDecimal(result)))
+        .divide(new BigDecimal("2"));
+      distance = new BigDecimal(result).subtract(
+        new BigDecimal(
+          new BigDecimal(result)
+            .add(new BigDecimal(num).divide(new BigDecimal(result)))
+            .divide(new BigDecimal("2"))
+        )
+      );
+    } while (Math.abs(Number(distance.toString())) > 1e-18);
+    return result;
+  }
   toString(): string {
     // issue #15:
     // jsbi - calculator not working
@@ -446,6 +466,7 @@ const JBC = {
   arrayizeExpression,
   jsbiCal,
   rpnParse,
+  BigDecimal,
 };
 
 export default JBC;
