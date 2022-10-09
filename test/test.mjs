@@ -1,7 +1,7 @@
 import { assert, expect } from "chai";
 import JBC from "../dist/jsbi-calculator.mjs";
 
-const { calculator, arrayizeExpression, rpnParse, jsbiCal } = JBC;
+const { calculator, arrayizeExpression, rpnParse, jsbiCal, BigDecimal } = JBC;
 
 let expression;
 
@@ -26239,3 +26239,77 @@ result = jsbiCal(rpn);
 
 expect(result).to.be.a("string");
 expect(result).to.equal("0");
+
+let squareNumber, root;
+
+squareNumber = "0";
+root = BigDecimal.sqrt(squareNumber).toString();
+expect(root).to.be.a("string");
+expect(root).to.equal("0");
+
+squareNumber = "-105625";
+root = BigDecimal.sqrt(squareNumber).toString();
+expect(root).to.be.a("string");
+expect(root).to.equal("NaN");
+
+squareNumber = "105625";
+root = BigDecimal.sqrt(squareNumber).toString();
+expect(root).to.be.a("string");
+// expect(root).to.equal("325");
+expect(
+  Math.abs(
+    Number(new BigDecimal(root).subtract(new BigDecimal("325")).toString())
+  )
+).to.be.lte(1e-18);
+
+squareNumber = "9";
+root = BigDecimal.sqrt(squareNumber).toString();
+expect(root).to.be.a("string");
+// expect(root).to.equal("3");
+expect(
+  Math.abs(
+    Number(new BigDecimal(root).subtract(new BigDecimal("3")).toString())
+  )
+).to.be.lte(1e-18);
+
+squareNumber = "3.14";
+root = BigDecimal.sqrt(squareNumber).toString();
+expect(root).to.be.a("string");
+// expect(root).to.equal("1.772004514666935040");
+expect(
+  Math.abs(
+    Number(
+      new BigDecimal(root)
+        .subtract(new BigDecimal("1.772004514666935040"))
+        .toString()
+    )
+  )
+).to.be.lte(1e-18);
+
+squareNumber = "102448.6";
+root = BigDecimal.sqrt(squareNumber).toString();
+expect(root).to.be.a("string");
+// expect(root).to.equal("320.075928491975166214");
+expect(
+  Math.abs(
+    Number(
+      new BigDecimal(root)
+        .subtract(new BigDecimal("320.075928491975166214"))
+        .toString()
+    )
+  )
+).to.be.lte(1e-18);
+
+squareNumber = "516699783";
+root = BigDecimal.sqrt(squareNumber).toString();
+expect(root).to.be.a("string");
+// expect(root).to.equal("320.075928491975166214");
+expect(
+  Math.abs(
+    Number(
+      new BigDecimal(root)
+        .subtract(new BigDecimal("22731.031278848744745528"))
+        .toString()
+    )
+  )
+).to.be.lte(1e-18);
