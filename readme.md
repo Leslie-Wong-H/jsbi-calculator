@@ -106,7 +106,7 @@ the positive ones can not start with "+".
 | Subtration     | `-`                                 |
 | Multiplication | `*`                                 |
 | Division       | `/`                                 |
-| Square         | JBC.BigDecimal.sqrt(num).toString() |
+| Square Root    | JBC.BigDecimal.sqrt(num).toString() |
 
 ## Thanks
 
