@@ -126,4 +126,4 @@ Great inspiration by the following resources.
 
 [Parsing math expressions with JavaScript - FreeCodeCamp](https://www.freecodecamp.org/news/parsing-math-expressions-with-javascript-7e8f5572276e/)
 
-## Under the hood
+## [Under the hood](https://github.com/Leslie-Wong-H/jsbi-calculator/blob/main/src/jsbi-calculator.ts)
