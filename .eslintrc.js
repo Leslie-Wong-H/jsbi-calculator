@@ -18,8 +18,9 @@ module.exports = {
     commonjs: true,
     es6: true,
     node: true,
+    "jest/globals": true,
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "jest"],
   extends: ["eslint:recommended", "plugin:import/errors", "prettier"],
   parserOptions: {
     ecmaVersion: 2018,
@@ -32,5 +33,13 @@ module.exports = {
     "no-console": ["off"],
     "no-unused-vars": ["off"],
     "no-underscore-dangle": ["off"],
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".ts"],
+        moduleDirectory: ["src", "test", "node_modules"],
+      },
+    },
   },
 };

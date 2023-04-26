@@ -311,7 +311,7 @@ function jsbiCal(tokens: string[]): string {
  * @param {Array} inp
  * @returns {Array}
  */
-function rpnParse(inp: string[]): string[] {
+function rpnParse(inp: (string | number)[]): string[] {
   let outQueue: Token[] = [];
   let opStack: Token[] = [];
 
@@ -384,7 +384,7 @@ interface Prec {
   "-": 2;
 }
 
-function tokenize(expArr: string[]): Token[] {
+function tokenize(expArr: (string | number)[]): Token[] {
   let result: Token[] = [];
 
   const assoc: Assoc = {
@@ -418,7 +418,8 @@ function tokenize(expArr: string[]): Token[] {
 
   // array of tokens
   if (Array.isArray(expArr)) {
-    expArr.forEach(function (char, idx) {
+    expArr.forEach(function (rawChar, idx) {
+      const char = String(rawChar);
       if (isDigit(char)) {
         result.push(new (Token as any)("Literal", char));
       } else if (isLetter(char)) {

@@ -28,6 +28,8 @@
     "stripInternal": true,
     "target": "es2015",
     "outDir": "tsc-out/",
-    "types": []
-  }
+    "types": ["jest"],
+    "esModuleInterop": true
+  },
+  "include": ["./**/*.ts"]
 }
