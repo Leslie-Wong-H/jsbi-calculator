@@ -1,5 +1,11 @@
 # JSBI-Calculator
 
+[![License](https://img.shields.io/github/license/Leslie-Wong-H/jsbi-calculator.svg?style=flat-square)](https://github.com/Leslie-Wong-H/jsbi-calculator/blob/master/LICENSE)
+[![Coverage](https://img.shields.io/codecov/c/github/Leslie-Wong-H/jsbi-calculator/main.svg?style=flat)](https://app.codecov.io/gh/Leslie-Wong-H/jsbi-calculator/branch/main)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Leslie-Wong-H/jsbi-calculator/main.yml?branch=main&style=flat-square)](https://github.com/Leslie-Wong-H/jsbi-calculator/actions)
+[![GitHub release](https://img.shields.io/github/release/Leslie-Wong-H/jsbi-calculator.svg)](https://github.com/Leslie-Wong-H/jsbi-calculator/releases/latest)
+[![NPM](https://img.shields.io/npm/dw/jsbi-calculator)](https://www.npmjs.com/package/jsbi-calculator)
+
 JSBI-Calculator is an IE11-compatible calculator utility to perform arbitrary (up to 18 decimals) arithmetic computation, with the help of JSBI-based BigDecimal.
 
 Remarkable contribution from this project to [GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi/issues/79)
