@@ -6,7 +6,7 @@
 [![GitHub release](https://img.shields.io/github/release/Leslie-Wong-H/jsbi-calculator.svg)](https://github.com/Leslie-Wong-H/jsbi-calculator/releases/latest)
 [![NPM](https://img.shields.io/npm/dw/jsbi-calculator)](https://www.npmjs.com/package/jsbi-calculator)
 
-JSBI-Calculator是一个IE11兼容的计算器JS库组件，用于实现高精度（至多18位小数）大数值四则运算，基于由谷歌Chrome实验室出品的JSBI封装的BigDecimial。
+JSBI-Calculator是一个IE11兼容的计算器JS库组件，用于实现高精度（至多18位小数）大数值四则运算，基于由谷歌Chrome实验室出品的JSBI封装的BigDecimal。
 
 该项目反哺[GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi/issues/79)作出了不凡贡献。
 
@@ -104,13 +104,13 @@ console.log(resultTwo);
 
 下面表格中的运算操作是有涉及到的。请注意，负数需要以`-`开头且需要用括号括起来，例如`(-11)`,正数不能以`+`号开头。
 
-| 运算操作       | 运算符号                             |
-| -------------- | ----------------------------------- |
-| 加法           | `+`                                 |
-| 减法           | `-`                                 |
-| 乘法           | `*`                                 |
-| 除法           | `/`                                 |
-| 平方根         | JBC.BigDecimal.sqrt(num).toString() |
+| 运算操作 | 运算符号                            |
+| -------- | ----------------------------------- |
+| 加法     | `+`                                 |
+| 减法     | `-`                                 |
+| 乘法     | `*`                                 |
+| 除法     | `/`                                 |
+| 平方根   | JBC.BigDecimal.sqrt(num).toString() |
 
 ## 致谢
 
