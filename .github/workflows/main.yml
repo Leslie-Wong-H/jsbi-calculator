@@ -20,3 +20,8 @@ jobs:
         run: npm run build
       - name: Test
         run: npm test
+      - name: Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests

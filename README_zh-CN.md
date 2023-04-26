@@ -6,23 +6,23 @@
 [![GitHub release](https://img.shields.io/github/release/Leslie-Wong-H/jsbi-calculator.svg)](https://github.com/Leslie-Wong-H/jsbi-calculator/releases/latest)
 [![NPM](https://img.shields.io/npm/dw/jsbi-calculator)](https://www.npmjs.com/package/jsbi-calculator)
 
-JSBI-Calculator is an IE11-compatible calculator utility to perform arbitrary (up to 18 decimals) arithmetic computation, with the help of JSBI-based BigDecimal.
+JSBI-Calculator是一个IE11兼容的计算器JS库组件，用于实现高精度（至多18位小数）大数值四则运算，基于由谷歌Chrome实验室出品的JSBI封装的BigDecimal。
 
-Remarkable contribution from this project to [GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi/issues/79)
+该项目反哺[GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi/issues/79)作出了不凡贡献。
 
-## Installation
+## 安装
 
 ```
 > npm install jsbi-calculator
 ```
 
-## Showcase
+## 示例
 
 ![Showcase](https://i.loli.net/2021/12/03/aADG5LxcZ2fh1vS.png)
 
-## Usage
+## 用法
 
-> For module:
+> ES6模块:
 
 ```js
 import JBC from "jsbi-calculator";
@@ -43,7 +43,7 @@ console.log(resultTwo);
 // -> '9007199254740993'
 ```
 
-> For node:
+> Node CommonJS模块:
 
 ```js
 const JBC = require("jsbi-calculator");
@@ -64,7 +64,7 @@ console.log(resultTwo);
 // -> '9007199254740993'
 ```
 
-> For browser:
+> 浏览器:
 
 ```html
 <!DOCTYPE html>
@@ -100,23 +100,21 @@ console.log(resultTwo);
 </html>
 ```
 
-## Note
+## 注意
 
-The following operations are available. Please mind the factors which are
-negative must start with "-" and be surrounded by parentheses, e.g. (-11) and
-the positive ones can not start with "+".
+下面表格中的运算操作是有涉及到的。请注意，负数需要以`-`开头且需要用括号括起来，例如`(-11)`,正数不能以`+`号开头。
 
-| Operation      | Symbol                              |
-| -------------- | ----------------------------------- |
-| Addition       | `+`                                 |
-| Subtration     | `-`                                 |
-| Multiplication | `*`                                 |
-| Division       | `/`                                 |
-| Square Root    | JBC.BigDecimal.sqrt(num).toString() |
+| 运算操作 | 运算符号                            |
+| -------- | ----------------------------------- |
+| 加法     | `+`                                 |
+| 减法     | `-`                                 |
+| 乘法     | `*`                                 |
+| 除法     | `/`                                 |
+| 平方根   | JBC.BigDecimal.sqrt(num).toString() |
 
-## Thanks
+## 致谢
 
-Great inspiration by the following resources.
+项目开发得到了下列资源的灵感启发。
 
 [GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi)
 
@@ -126,4 +124,4 @@ Great inspiration by the following resources.
 
 [Parsing math expressions with JavaScript - FreeCodeCamp](https://www.freecodecamp.org/news/parsing-math-expressions-with-javascript-7e8f5572276e/)
 
-## [Under the hood](https://github.com/Leslie-Wong-H/jsbi-calculator/blob/main/src/jsbi-calculator.ts)
+## [苍穹之下](https://github.com/Leslie-Wong-H/jsbi-calculator/blob/main/src/jsbi-calculator.ts)
