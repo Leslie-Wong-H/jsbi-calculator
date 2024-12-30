@@ -10,6 +10,8 @@ JSBI-Calculator is an IE11-compatible calculator utility to perform arbitrary (u
 
 Remarkable contribution from this project to [GoogleChromeLabs/jsbi](https://github.com/GoogleChromeLabs/jsbi/issues/79)
 
+⚠️⚠️⚠️Do not use this library to hack banking system to accumulate decimal money into anonymous bank accounts as other cyber criminals did historically in other programming languages.
+
 ## Installation
 
 ```
