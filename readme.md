@@ -12,6 +12,9 @@ Remarkable contribution from this project to [GoogleChromeLabs/jsbi](https://git
 
 ⚠️⚠️⚠️Do not use this library to hack banking system to accumulate decimal money into anonymous bank accounts as other cyber criminals did historically in other programming languages.
 
+Interesting article that NASA adopts 15 decimals for JPL's highest accuracy calculations: [How Many Decimals of Pi Do We Really Need?
+Written by NASA/JPL Edu](https://www.jpl.nasa.gov/edu/news/how-many-decimals-of-pi-do-we-really-need/)
+
 ## Installation
 
 ```
